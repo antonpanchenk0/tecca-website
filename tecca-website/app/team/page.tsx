@@ -1,6 +1,6 @@
-import type { Metadata } from 'next'
-import { HeroHeader } from '@/components/header'
-import Team from '@/components/team'
+import type { Metadata } from 'next';
+import { HeroHeader } from '@/components/header';
+import Team from '@/components/team';
 
 export const metadata: Metadata = {
   title: 'Our Team',
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/team',
   },
-}
+};
 
 export default function TeamPage() {
   return (
@@ -24,5 +24,5 @@ export default function TeamPage() {
         <Team />
       </main>
     </>
-  )
+  );
 }

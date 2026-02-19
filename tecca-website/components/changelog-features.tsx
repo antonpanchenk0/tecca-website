@@ -1,61 +1,84 @@
-'use client'
+'use client';
 
-import { useState, useRef, useEffect } from 'react'
-import { Layout, Tags, PenLine, Bell, Check, Mail } from 'lucide-react'
-import { motion, useAnimationControls } from 'motion/react'
-import Image from 'next/image'
-import { Card } from '@/components/ui/card'
+import { useState, useRef, useEffect } from 'react';
+import { Layout, Tags, PenLine, Bell, Check, Mail } from 'lucide-react';
+import { motion, useAnimationControls } from 'motion/react';
+import Image from 'next/image';
+import { Card } from '@/components/ui/card';
 
 const categories = [
-  { id: 'feature', label: 'New Feature', color: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20' },
-  { id: 'bugfix', label: 'Bug Fix', color: 'bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/20' },
-  { id: 'improvement', label: 'Improvement', color: 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20' },
-  { id: 'security', label: 'Security', color: 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20' },
-  { id: 'performance', label: 'Performance', color: 'bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/20' },
-]
+  {
+    id: 'feature',
+    label: 'New Feature',
+    color: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20',
+  },
+  {
+    id: 'bugfix',
+    label: 'Bug Fix',
+    color: 'bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/20',
+  },
+  {
+    id: 'improvement',
+    label: 'Improvement',
+    color: 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20',
+  },
+  {
+    id: 'security',
+    label: 'Security',
+    color: 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20',
+  },
+  {
+    id: 'performance',
+    label: 'Performance',
+    color: 'bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/20',
+  },
+];
 
 export default function ChangelogFeaturesSection() {
-  const [selectedCategories, setSelectedCategories] = useState<string[]>(['feature', 'improvement'])
-  const [notifyHovered, setNotifyHovered] = useState(false)
-  const mailControls = useAnimationControls()
-  const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([
+    'feature',
+    'improvement',
+  ]);
+  const [notifyHovered, setNotifyHovered] = useState(false);
+  const mailControls = useAnimationControls();
+  const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const toggleCategory = (id: string) => {
-    setSelectedCategories(prev =>
-      prev.includes(id) ? prev.filter(c => c !== id) : [...prev, id]
-    )
-  }
+    setSelectedCategories((prev) =>
+      prev.includes(id) ? prev.filter((c) => c !== id) : [...prev, id],
+    );
+  };
 
   const handleNotifyEnter = () => {
-    if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current)
-    setNotifyHovered(true)
+    if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
+    setNotifyHovered(true);
     mailControls.start({
       y: 0,
       x: 0,
       opacity: 1,
       rotate: 0,
       transition: { type: 'spring', stiffness: 300, damping: 20, delay: 0.1 },
-    })
-  }
+    });
+  };
 
   const handleNotifyLeave = () => {
     hoverTimeoutRef.current = setTimeout(() => {
-      setNotifyHovered(false)
-    }, 300)
+      setNotifyHovered(false);
+    }, 300);
     mailControls.start({
       y: 30,
       x: 15,
       opacity: 0,
       rotate: 12,
       transition: { duration: 0.25, ease: 'easeIn' },
-    })
-  }
+    });
+  };
 
   useEffect(() => {
     return () => {
-      if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current)
-    }
-  }, [])
+      if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
+    };
+  }, []);
 
   return (
     <section>
@@ -68,7 +91,8 @@ export default function ChangelogFeaturesSection() {
                 <h3 className="text-foreground text-lg font-semibold">Changelog</h3>
               </div>
               <p className="text-muted-foreground max-w-xl">
-                Keep your users informed about every update, fix, and improvement with a beautiful changelog
+                Keep your users informed about every update, fix, and improvement with a beautiful
+                changelog
               </p>
               <div className="mask-b-from-95% -ml-2 -mt-2 mr-0.5 pl-2 pt-2">
                 <div className="bg-background rounded-tl-(--radius) ring-foreground/5 relative mx-auto mt-4 overflow-hidden border border-transparent shadow ring-1">
@@ -96,7 +120,7 @@ export default function ChangelogFeaturesSection() {
 
               <div className="w-full h-40 flex flex-wrap content-center justify-center gap-1.5 p-3 bg-background rounded-md">
                 {categories.map((cat) => {
-                  const isSelected = selectedCategories.includes(cat.id)
+                  const isSelected = selectedCategories.includes(cat.id);
                   return (
                     <button
                       key={cat.id}
@@ -110,7 +134,7 @@ export default function ChangelogFeaturesSection() {
                       {isSelected && <Check className="size-2.5" />}
                       {cat.label}
                     </button>
-                  )
+                  );
                 })}
               </div>
             </Card>
@@ -122,7 +146,8 @@ export default function ChangelogFeaturesSection() {
                   <h3 className="text-foreground text-lg font-semibold">Changelog post creation</h3>
                 </div>
                 <p className="text-muted-foreground">
-                  Set status, notify changelog subscribers, delete drafts before publishing, publish later or straight away
+                  Set status, notify changelog subscribers, delete drafts before publishing, publish
+                  later or straight away
                 </p>
               </div>
 
@@ -166,7 +191,9 @@ export default function ChangelogFeaturesSection() {
                       }`}
                     />
                   </div>
-                  <span className="text-xs font-medium text-foreground">Send email to subscribers</span>
+                  <span className="text-xs font-medium text-foreground">
+                    Send email to subscribers
+                  </span>
                 </div>
 
                 <motion.div
@@ -192,5 +219,5 @@ export default function ChangelogFeaturesSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }

@@ -1,5 +1,5 @@
-import { NextResponse } from 'next/server'
-import nodemailer from 'nodemailer'
+import { NextResponse } from 'next/server';
+import nodemailer from 'nodemailer';
 
 function escapeHtml(str: string): string {
   return str
@@ -7,36 +7,43 @@ function escapeHtml(str: string): string {
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;')
+    .replace(/'/g, '&#039;');
 }
 
-const MAX_NAME_LENGTH = 200
-const MAX_EMAIL_LENGTH = 320
-const MAX_MESSAGE_LENGTH = 5000
+const MAX_NAME_LENGTH = 200;
+const MAX_EMAIL_LENGTH = 320;
+const MAX_MESSAGE_LENGTH = 5000;
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json()
-    const name = typeof body.name === 'string' ? body.name.trim() : ''
-    const email = typeof body.email === 'string' ? body.email.trim() : ''
-    const message = typeof body.message === 'string' ? body.message.trim() : ''
+    const body = await request.json();
+    const name = typeof body.name === 'string' ? body.name.trim() : '';
+    const email = typeof body.email === 'string' ? body.email.trim() : '';
+    const message = typeof body.message === 'string' ? body.message.trim() : '';
 
     if (!name || !email || !message) {
-      return NextResponse.json({ error: 'Name, email, and message are required.' }, { status: 400 })
+      return NextResponse.json(
+        { error: 'Name, email, and message are required.' },
+        { status: 400 },
+      );
     }
 
-    if (name.length > MAX_NAME_LENGTH || email.length > MAX_EMAIL_LENGTH || message.length > MAX_MESSAGE_LENGTH) {
-      return NextResponse.json({ error: 'Input exceeds maximum allowed length.' }, { status: 400 })
+    if (
+      name.length > MAX_NAME_LENGTH ||
+      email.length > MAX_EMAIL_LENGTH ||
+      message.length > MAX_MESSAGE_LENGTH
+    ) {
+      return NextResponse.json({ error: 'Input exceeds maximum allowed length.' }, { status: 400 });
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      return NextResponse.json({ error: 'Please provide a valid email address.' }, { status: 400 })
+      return NextResponse.json({ error: 'Please provide a valid email address.' }, { status: 400 });
     }
 
-    const safeName = escapeHtml(name)
-    const safeEmail = escapeHtml(email)
-    const safeMessage = escapeHtml(message)
+    const safeName = escapeHtml(name);
+    const safeEmail = escapeHtml(email);
+    const safeMessage = escapeHtml(message);
 
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST || 'smtp.gmail.com',
@@ -46,7 +53,7 @@ export async function POST(request: Request) {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASSWORD,
       },
-    })
+    });
 
     await transporter.sendMail({
       from: `"${safeName}" <${process.env.SMTP_USER}>`,
@@ -73,11 +80,14 @@ export async function POST(request: Request) {
           </div>
         </div>
       `,
-    })
+    });
 
-    return NextResponse.json({ success: true, message: 'Email sent successfully.' })
+    return NextResponse.json({ success: true, message: 'Email sent successfully.' });
   } catch (error) {
-    console.error('Contact form error:', error)
-    return NextResponse.json({ error: 'Failed to send email. Please try again later.' }, { status: 500 })
+    console.error('Contact form error:', error);
+    return NextResponse.json(
+      { error: 'Failed to send email. Please try again later.' },
+      { status: 500 },
+    );
   }
 }

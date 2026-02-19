@@ -1,49 +1,49 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import { Button } from '@/components/ui/button'
-import { Mail, HelpCircle, Loader2, CheckCircle, AlertCircle } from 'lucide-react'
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Mail, HelpCircle, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
 
-type FormStatus = 'idle' | 'loading' | 'success' | 'error'
+type FormStatus = 'idle' | 'loading' | 'success' | 'error';
 
 export default function ContactUs() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     message: '',
-  })
-  const [status, setStatus] = useState<FormStatus>('idle')
-  const [errorMessage, setErrorMessage] = useState('')
+  });
+  const [status, setStatus] = useState<FormStatus>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-  }
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setStatus('loading')
-    setErrorMessage('')
+    e.preventDefault();
+    setStatus('loading');
+    setErrorMessage('');
 
     try {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
-      })
+      });
 
-      const data = await res.json()
+      const data = await res.json();
 
       if (!res.ok) {
-        throw new Error(data.error || 'Something went wrong')
+        throw new Error(data.error || 'Something went wrong');
       }
 
-      setStatus('success')
-      setFormData({ name: '', email: '', message: '' })
+      setStatus('success');
+      setFormData({ name: '', email: '', message: '' });
     } catch (err) {
-      setStatus('error')
-      setErrorMessage(err instanceof Error ? err.message : 'Something went wrong')
+      setStatus('error');
+      setErrorMessage(err instanceof Error ? err.message : 'Something went wrong');
     }
-  }
+  };
 
   return (
     <div className="bg-background relative py-16 md:py-32">
@@ -71,7 +71,8 @@ export default function ContactUs() {
                 </span>
                 <a
                   href="mailto:bonjour@tecca.io"
-                  className="text-primary mt-2 text-sm font-semibold hover:underline">
+                  className="text-primary mt-2 text-sm font-semibold hover:underline"
+                >
                   bonjour@tecca.io
                 </a>
               </div>
@@ -88,7 +89,8 @@ export default function ContactUs() {
                 </span>
                 <a
                   href="mailto:support@tecca.io"
-                  className="text-primary mt-2 text-sm font-semibold hover:underline">
+                  className="text-primary mt-2 text-sm font-semibold hover:underline"
+                >
                   support@tecca.io
                 </a>
               </div>
@@ -182,5 +184,5 @@ export default function ContactUs() {
         </div>
       </div>
     </div>
-  )
+  );
 }

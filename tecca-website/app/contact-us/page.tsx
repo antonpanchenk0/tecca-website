@@ -1,6 +1,6 @@
-import type { Metadata } from 'next'
-import { HeroHeader } from '@/components/header'
-import ContactUs from '@/components/contact-us'
+import type { Metadata } from 'next';
+import { HeroHeader } from '@/components/header';
+import ContactUs from '@/components/contact-us';
 
 export const metadata: Metadata = {
   title: 'Contact Us',
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/contact-us',
   },
-}
+};
 
 export default function ContactUsPage() {
   return (
@@ -24,5 +24,5 @@ export default function ContactUsPage() {
         <ContactUs />
       </main>
     </>
-  )
+  );
 }

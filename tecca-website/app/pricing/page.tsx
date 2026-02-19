@@ -1,6 +1,6 @@
-import type { Metadata } from 'next'
-import { HeroHeader } from '@/components/header'
-import Pricing from '@/components/pricing'
+import type { Metadata } from 'next';
+import { HeroHeader } from '@/components/header';
+import Pricing from '@/components/pricing';
 
 export const metadata: Metadata = {
   title: 'Pricing',
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/pricing',
   },
-}
+};
 
 export default function PricingPage() {
   return (
@@ -24,5 +24,5 @@ export default function PricingPage() {
         <Pricing />
       </main>
     </>
-  )
+  );
 }

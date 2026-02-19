@@ -78,8 +78,19 @@ export const HeroHeader = () => {
             )}
           >
             <div className="flex w-full justify-between gap-6 lg:w-auto">
-              <Link href="/" aria-label="home" className="flex items-center space-x-2" onClick={(e) => handleNavClick(e, '/')}>
-                <Image src="/logo-big.png" alt="Tecca" width={100} height={32} className="h-8 w-auto" />
+              <Link
+                href="/"
+                aria-label="home"
+                className="flex items-center space-x-2"
+                onClick={(e) => handleNavClick(e, '/')}
+              >
+                <Image
+                  src="/logo-big.png"
+                  alt="Tecca"
+                  width={100}
+                  height={32}
+                  className="h-8 w-auto"
+                />
               </Link>
 
               <button
@@ -96,7 +107,11 @@ export const HeroHeader = () => {
                   {menuItems.map((item, index) => (
                     <li key={index}>
                       <Button asChild variant="ghost" size="sm">
-                        <Link href={item.href} className="text-base" onClick={(e) => handleNavClick(e, item.href)}>
+                        <Link
+                          href={item.href}
+                          className="text-base"
+                          onClick={(e) => handleNavClick(e, item.href)}
+                        >
                           <span>{item.name}</span>
                         </Link>
                       </Button>

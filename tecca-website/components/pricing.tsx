@@ -1,10 +1,10 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import { Button } from '@/components/ui/button'
-import { Check } from 'lucide-react'
-import Link from 'next/link'
-import { cn } from '@/lib/utils'
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Check } from 'lucide-react';
+import Link from 'next/link';
+import { cn } from '@/lib/utils';
 
 const plans = [
   {
@@ -81,10 +81,10 @@ const plans = [
       'Anonymous Posting & Voting',
     ],
   },
-]
+];
 
 export default function Pricing() {
-  const [isYearly, setIsYearly] = useState(false)
+  const [isYearly, setIsYearly] = useState(false);
 
   return (
     <div className="bg-background relative py-16 md:py-32">
@@ -146,9 +146,7 @@ export default function Pricing() {
               key={plan.name}
               className={cn(
                 'row-span-3 grid grid-rows-subgrid rounded-xl border p-6',
-                plan.highlighted
-                  ? 'ring-primary bg-card shadow-lg ring-2'
-                  : 'bg-card',
+                plan.highlighted ? 'ring-primary bg-card shadow-lg ring-2' : 'bg-card',
               )}
             >
               {/* Subgrid row 1: Badge + Name + Price + Description */}
@@ -178,14 +176,16 @@ export default function Pricing() {
                 ) : (
                   <p className="mt-1 text-xs">&nbsp;</p>
                 )}
-                <p className="text-muted-foreground mt-3 text-sm">
-                  {plan.description}
-                </p>
+                <p className="text-muted-foreground mt-3 text-sm">{plan.description}</p>
               </div>
 
               {/* Subgrid row 2: Button — perfectly aligned across all cards */}
               <div className="self-end">
-                <Button asChild className="w-full" variant={plan.highlighted ? 'default' : 'outline'}>
+                <Button
+                  asChild
+                  className="w-full"
+                  variant={plan.highlighted ? 'default' : 'outline'}
+                >
                   <Link href="#">{plan.cta}</Link>
                 </Button>
               </div>
@@ -204,5 +204,5 @@ export default function Pricing() {
         </div>
       </div>
     </div>
-  )
+  );
 }
