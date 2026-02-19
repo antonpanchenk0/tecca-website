@@ -149,7 +149,7 @@ export default function ContactUs() {
                     rows={5}
                     value={formData.message}
                     onChange={handleChange}
-                    placeholder="Tell us about your question or feedback..."
+                    placeholder="Your inquiry..."
                     className="bg-background text-foreground placeholder:text-muted-foreground border-input focus:ring-ring/50 focus:border-ring w-full resize-none rounded-md border px-4 py-3 text-sm outline-none transition-colors focus:ring-2"
                   />
                 </div>
