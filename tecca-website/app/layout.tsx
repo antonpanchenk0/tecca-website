@@ -98,6 +98,19 @@ export default function RootLayout({
             gtag('config', 'G-D4JY79GSTC');
           `}
         </Script>
+        <Script id="crisp-chat" strategy="afterInteractive">
+          {`
+            window.$crisp=[];
+            window.CRISP_WEBSITE_ID="60f6cf89-e32b-4f59-b6a3-a04d1829e517";
+            (function(){
+              var d=document;
+              var s=d.createElement("script");
+              s.src="https://client.crisp.chat/l.js";
+              s.async=1;
+              d.getElementsByTagName("head")[0].appendChild(s);
+            })();
+          `}
+        </Script>
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {children}
